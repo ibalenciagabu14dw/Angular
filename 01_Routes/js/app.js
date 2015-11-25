@@ -5,7 +5,7 @@ var amigoApp = angular.module('amigoApp', [
 //*****************DESDE AQUI*********************
 
 //creamos un nuevo servicio para acceder a los datos de los amigos
-amigoApp.service('amigoSrv', function () {
+amigoApp.factory('amigoSrv', function () {
   //movemos el contenido del controlador que estaba en el controllers.js a esta funcion
   //controlador para el index
   var lstAmigos = [
@@ -30,8 +30,17 @@ amigoApp.service('amigoSrv', function () {
   	  //funcion para BUSCAR un amigo en concreto
   	  find:function(id){
   	    return lstAmigos[id];
-  	  }
-  }
+  	  },
+  	  //funcion para añadir amigo nuevo
+  	  add:function(amigo){
+  	    lstAmigos.push(amigo);
+  	  },
+  	  //funcion para eliminar un amigo
+  	  delete:function(id){
+  	    //el 1 es para decirle el numero de elementos a eliminar
+	  	  lstAmigos.splice(id,1);
+	  }
+  };
 });
 
 

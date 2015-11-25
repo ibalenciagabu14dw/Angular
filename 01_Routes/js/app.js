@@ -23,8 +23,13 @@ amigoApp.service('amigoSrv', function () {
   	  }
   	];
   	return {
+  	  //funcion para recuperar toda la lista de amigos
   	  get:function(){
-  	    return lstAmigos;  
+  	    return lstAmigos;
+  	  },
+  	  //funcion para BUSCAR un amigo en concreto
+  	  find:function(id){
+  	    return lstAmigos[id];
   	  }
   }
 });

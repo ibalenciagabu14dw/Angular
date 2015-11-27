@@ -1,4 +1,4 @@
-var amigosControllers = angular.module('amigosControllers', []);
+var amigosControllers = angular.module('amigosControllers', ['mgcrea.ngStrap']);
 
 
 //controlador para el index

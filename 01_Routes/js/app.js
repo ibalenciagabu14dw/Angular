@@ -2,11 +2,9 @@ var amigoApp = angular.module('amigoApp', [
   'ngRoute',
   'amigosControllers'  
 ]);
-//*****************DESDE AQUI*********************
 
-//creamos un nuevo servicio para acceder a los datos de los amigos
+//creamos un servicio para acceder a los datos de los amigos
 amigoApp.factory('amigoSrv', function () {
-  //movemos el contenido del controlador que estaba en el controllers.js a esta funcion
   //controlador para el index
   var lstAmigos = [
 	    {
@@ -21,8 +19,8 @@ amigoApp.factory('amigoSrv', function () {
   		  nombre:"luis",
   		  tlfno:"123456789"
   	  }
-  	];
-  	return {
+  ];
+  return {
   	  //funcion para recuperar toda la lista de amigos
   	  get:function(){
   	    return lstAmigos;
@@ -39,7 +37,7 @@ amigoApp.factory('amigoSrv', function () {
   	  delete:function(id){
   	    //el 1 es para decirle el numero de elementos a eliminar
 	  	  lstAmigos.splice(id,1);
-	  }
+	    }
   };
 });
 
@@ -62,5 +60,5 @@ amigoApp.config(['$routeProvider',
       otherwise({
         redirectTo: '/amigos'
       });
-      
-  }]);
+  }
+]);

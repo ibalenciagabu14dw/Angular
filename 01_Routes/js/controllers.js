@@ -27,6 +27,12 @@ amigosControllers.controller('amigoEditCtrl', ['$scope','$rootScope', '$routePar
 		$scope.eliminar=function(){
 			$scope.amigo = amigoSrv.delete($routeParams.amigoId);
 		};
+		
+		$scope.modal = {
+  			"title": "Title",
+  			"content": "Hello Modal<br />This is a multiline message!"
+		};
+		
 	}
 ]);
 

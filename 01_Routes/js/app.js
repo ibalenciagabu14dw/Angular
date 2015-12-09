@@ -1,47 +1,53 @@
 var amigoApp = angular.module('amigoApp', [
   'ngRoute',
-  'amigosControllers'  
+  'amigosControllers',
+  'firebase'
 ]);
 
-//creamos un servicio para acceder a los datos de los amigos
-amigoApp.factory('amigoSrv', function () {
+//Servicio para acceder a los datos de los amigos
+amigoApp.factory('amigoSrv',['$firebaseArray',function ($firebaseArray) {
+  //el contenido de controller.js a esta funcion
   //controlador para el index
-  var lstAmigos = [
-	    {
-  		  nombre:"juan",
-  		  tlfno:"123456789"
-  	  },
-  	  {
-  		  nombre:"pedro",
-  		  tlfno:"123456789"
-  	  },	
-  	  {
-  		  nombre:"luis",
-  		  tlfno:"123456789"
-  	  }
-  ];
+  /*var lstAmigos = [
+    {
+      nombre:"juan",
+      tlfno:"123456789"
+    },
+    {
+      nombre:"pedro",
+      tlfno:"123456789"
+    },
+    {
+      nombre:"luis",
+      tlfno:"123456789"
+    }
+  ];*/
+  var ref = new Firebase("https://ibalenciagabu14dw.firebaseio.com/");
+  var lstAmigos=$firebaseArray(ref);
   return {
-  	  //funcion para recuperar toda la lista de amigos
-  	  get:function(){
-  	    return lstAmigos;
-  	  },
-  	  //funcion para BUSCAR un amigo en concreto
-  	  find:function(id){
-  	    return lstAmigos[id];
-  	  },
-  	  //funcion para añadir amigo nuevo
-  	  add:function(amigo){
-  	    lstAmigos.push(amigo);
-  	  },
-  	  //funcion para eliminar un amigo
-  	  delete:function(id){
-  	    //el 1 es para decirle el numero de elementos a eliminar
-	  	  lstAmigos.splice(id,1);
-	    }
+    //funcion para recuperar toda la lista de amigos
+    get:function () {
+      return lstAmigos;
+    },
+    //funcion para buscar amigo
+    find:function (id) {
+      return lstAmigos[id];
+    },
+    //funcion para añadir amigo
+    add:function (amigo) {
+      //lstAmigos.push(amigo);
+      lstAmigos.$add(amigo);
+    },
+    //funcion para eliminar amigo
+    delete:function (id) {
+      //lstAmigos.splice(id,1);
+      lstAmigos.$remove(lstAmigos[id]);
+    },
+    save:function (id) {
+      lstAmigos.$save(lstAmigos[id]);
+    }
   };
-});
-
-
+}]);
 amigoApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
@@ -60,5 +66,5 @@ amigoApp.config(['$routeProvider',
       otherwise({
         redirectTo: '/amigos'
       });
-  }
-]);
+      
+  }]);
